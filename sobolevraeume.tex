@@ -1,0 +1,383 @@
+% \datum{12. Oktober 2015}
+\section{Sobolevräume}
+\label{sec:sobolevraume}
+\subsection{Der Raum der Testfunktionen}
+Im Folgenden sei $\Omega \subseteq \R^{N}$ eine offene Menge (wenn nicht explizit etwas anderes gesagt wird). Wir verwenden folgende Funktionenräume (Vektorräume über $\R$ oder $\C$):
+\begin{align*}
+  C(\Omega) &= \set{u: \Omega \to \C: u \text{ ist stetig}}, \\
+  L^{p}(\Omega) &= \set{u: \Omega \to \C: u \text{ ist messbar und } \int_{\Omega} \norm u^{p} < \infty}, \quad 1 \leq p < \infty
+\end{align*}
+versehen mit der Norm
+\begin{align*}
+  \nnorm{u}_{L^{p}} \coloneqq \( \int_{\Omega} \norm u^{p}\)^{\frac 1 p}
+\end{align*}
+und 
+\begin{align*}
+    L^{\infty}(\Omega) &= \set{u: \Omega \to \C: u \text{ ist messbar und } \exists C \geq 0: \set{\norm u > C} \text{ ist eine Nullmenge}}
+\end{align*}
+versehen mit der Norm
+\begin{align*}
+    \nnorm{u}_{L^{\infty}} \coloneqq \inf \set{C \geq 0:  \set{\norm u > C} \text{ ist Nullmenge}}
+\end{align*}. 
+
+Wir verwenden auch für $1 \leq p \leq \infty$ die Räume
+\begin{align*}
+  L^{p}_{loc}(\Omega) &= \set{u: \Omega \to \C: u \text{ ist messbar und }\forall K \subseteq \Omega \text{ kompakt ist } \int_{K}   \norm u^{p} < \infty}. 
+\end{align*}
+Das ist der Raum der lokal $p$-integrierbarern Funktionen. Es gilt für alle $p \in [1, \infty]$:
+\begin{align*}
+  L^{p}(\Omega) \subseteq L_{loc}^{p}(\Omega)\subseteq L_{loc}^{1}(\Omega)
+\end{align*}
+und
+\begin{align*}
+  C(\Omega) \subseteq L_{loc}^{1}(\Omega). 
+\end{align*}
+Für $u \in L^{1}_{loc}(\Omega)$ definieren wir den \markdef{Träger} durch
+\begin{align*}
+  \supp u\coloneqq \Omega \setminus \bigcup_{U_{i} \subseteq \Omega \text{ rel. offen}, u = 0 \text{ f.ü. auf } U_{i}} U_{i}
+\end{align*}
+(relativ abgeschlossen in $\Omega$, aber im Allgemeinen nicht im $\R^{N}$). 
+Es gilt $L^{p}\(]0, 1[\) =L^{p}\([0, 1]\) \eqqcolon L^{p}\(0, 1\)$, aber $L_{loc}^{p}\(]0, 1[\) \neq L_{loc}^{p}\([0, 1]\)$! Es gilt $L^{p}(0, 1) = L_{loc}^{p}([0, 1])$. 
+
+Eine Funktion $u \in L^{1}_{loc}(\Omega)$ hat \markdef{kompakten Träger}, wenn $\supp u$ kompakt ist.
+\begin{align*}
+  L_{c}^{p}(\Omega) & \coloneqq \set{ u \in L^{p}(\Omega): \supp u \text{ kompakt}}\\
+  C_{c}(\Omega) & \coloneqq \set{ u \in C(\Omega): \supp u \text{ kompakt}}\\
+  C_{c}^{k}(\Omega) & \coloneqq C_{c}(\Omega) \cap C^{k}(\Omega)\\
+  C_{c}^{\infty}(\Omega) & \coloneqq C_{c}(\Omega) \cap C^{\infty}(\Omega). 
+\end{align*}
+Der Raum $C_{c}^{\infty}(\Omega)$ wird manchmal auch mit $\cD(\Omega)$ bezeichnet und heißt \markdef{Raum der Testfunktionen}. Die Elemente von $C_{C}^{\infty}$ heißen dementsprechend \markdef{Testfunktionen}. 
+\begin{beispiel} Wichtige Testfunktion (einziges Beispiel):
+  \begin{align*}
+    u(x) =
+    \begin{cases}
+      e^{- \frac 1 {1- \nnorm x}^{2}}, & \text{falls } \nnorm x^{2} = \sum_{i = 1}^{N}x_{i}^{2} < 1\\
+      0, & \text{sonst}. 
+    \end{cases}
+  \end{align*}
+\end{beispiel}
+Alle Testfunktionen sind integrierbar und haben ein positives Integral, also $C_{c}^{\infty} \subseteq L^{1}(\Omega)$. 
+\begin{uebung}
+  Für $u \in C(\Omega)$ gilt
+  \begin{align*}
+    \supp u = \cl \set{x \in \Omega: u(x) \neq 0}.
+  \end{align*}
+Der Abschluss ist bezüglich der relativen Topologie in $\Omega$ gemeint. 
+\end{uebung}
+Jede stetige Funktion ist auf einer kompakten Menge beschränkt. 
+\begin{bemerkung}
+  Manchmal wird $C_{c}^{\infty} = \cD(\Omega)$ auch mit $C_{0}^{\infty}(\Omega)$ (Was ist das? Schrecklich, Tod und Verderben!!!) bezeichnet. Achtung:
+  \begin{align*}
+    C_{0}\coloneqq \set{ u \in C(\Omega): \, \forall \eps > 0\, \exists K \subseteq \Omega \text{ kompakt }\forall x \in \Omega \setminus K: \norm{u(x)} \leq \eps}
+  \end{align*}
+\end{bemerkung}
+
+\subsection{Die Faltung}
+\begin{theorem} Young
+
+Seien $f \in L^{1}(\R^{N})$, $g \in L^{p}(\R^{N})$, $p \in [1, \infty]$. Dann ist für fast alle $x \in \R^{N}$ die Funktion
+\begin{align*}
+  y \mapsto f(x - y)\cdot g(y)
+\end{align*}
+integrierbar. Wir definieren $f * g : \R^{N}\to \C$ durch
+\begin{align*}
+  (f * g)(x) \coloneqq \int_{\R^{N}} f(x - y)\cdot g(y) dy
+\end{align*}
+und nennen $f * g$ die \markdef{Faltung} von $f$ und $g$. Es gilt, dass $f*g \in L^{p}(\R^{N})$ und
+\begin{align*}
+  \nnorm {f * g}_{L^{p}} \leq   \nnorm {f}_{L^{1}} \cdot   \nnorm {g}_{L^{p}}. 
+\end{align*}
+\end{theorem}
+\begin{beweis}
+  \begin{enumerate}
+  \item $p = 1$: Dann gilt mit Tonelli
+    \begin{align*}
+      \int_{\R^{N}}\int_{\R^{N}} \norm{f(x - y)\cdot g(y)} \, dy \, dx &= \int_{\R^{N}}\int_{\R^{N}} \norm{f(x - y)} \, dx \,  \cdot \norm{g(y)} \, dy  \\
+      &= \int_{\R^{N}} \nnorm{f}_{L^{1}}\cdot g(y) \, dy  \\
+      &= \nnorm{f}_{L^{1}}\cdot \nnorm{ g}_{L^{1}} < \infty  \\
+    \end{align*}
+nach Voraussetzung. Es gilt außerdem 
+\begin{align*}
+\nnorm{f*g}_{L^{1}} = \int_{R^{N}} \norm{f * g(x)} \, dx \leq \int_{\R^{N}}\int_{\R^{N}} \norm{f(x - y)\cdot g(y)} \, dy \, dx. 
+\end{align*}
+\item $1 < p < \infty$:
+\begin{align*}
+  g \in L^{p}(\R^{N}) \implies \norm g ^{p} \in L^{1}(\R^{N})
+\end{align*}
+Daraus folgt mit dem ersten Fall, dass für fast alle $x \in \R^{N}$
+\begin{align*}
+  y \mapsto \norm {f(x - y)}\cdot\norm{g(y)}^{p}
+\end{align*}
+integrierbar ist. Also ist für fast alle $x \in R^{N}$
+\begin{align*}
+    y \mapsto \norm {f(x - y)}^{\frac 1 p} \cdot\norm{g(y)}
+\end{align*}
+$p$-integrierbar. Außerdem gilt für $f \in L^{1} (\R^{N})$, dass $\norm f^{\frac 1 {p'}} \in L^{p'} \in \Omega$ für $p' = \frac p{p-1}$. Es folgt mit der Hölderschen Ungleichung
+\begin{align*}
+    y \mapsto \norm {f(x - y)}\cdot\norm{g(y)} = \norm {f(x - y)}^{\frac 1 {p'}}\cdot \norm {f(x - y)}^{\frac 1 {p}}\cdot  \norm {g(y)}
+\end{align*}
+ist integrierbar für fast alle $x \in \R^{N}$ und
+\begin{align*}
+  \norm {(f*g)(x)} &\leq \int_{R^{N}} \norm {f(x-y)} \norm{g(y)} dy \\
+& \leq \(\int_{R^{N}} \norm {f(x-y)} dy\)^{\frac 1 {p'}} \cdot \( \int_{\R^{N}}\norm{f(x - y)}\cdot \norm{g(y)}^{p} dy\)^{\frac 1 p} \\
+\implies \quad \int_{\R^{N}} \norm {f*p(x)}^{p} dx &\leq \nnorm f_{L^{1}}^{\frac p {p'}} \int_{R^{N}} \int_{\R^{N}} \norm {f(x-y)}  \cdot \norm{g(y)}^{p} dy \,dx\\
+& =  \nnorm f_{L^{1}}^{\frac p {p'}} \int_{R^{N}} \int_{\R^{N}} \norm {f(x-y)} dx  \cdot \norm{g(y)}^{p} dy \\
+& =  \nnorm f_{L^{1}}^{\frac p {p'} + 1} \nnorm g^{p}_{L^{p}}\\
+& =  \nnorm f_{L^{1}}^{p} \nnorm g^{p}_{L^{p}}
+\end{align*}
+
+  \end{enumerate}
+\item $p = \infty$ klar.
+\end{beweis}
+
+% \datum{13. Oktober 2015}
+
+Variante:
+\begin{korollar}
+  Sei $f \in L^{p}_{loc}(\R^{N})$, $g \in L^{1}_{c}(\R^{N})$ (oder $f \in L^{1}_{loc}(\R^{N})$, $g \in L^{p}_{c}(\R^{N})$) für $1 \leq p \leq \infty$. Dann ist für fast alle $x \in \R^{N}$ die Funktion
+  \begin{align*}
+    y \mapsto f(x-y)\cdot g(y)
+  \end{align*}
+integrierbar auf $\R^{N}$. Die Funktion $f*g: \R^{N} \to \C$,
+\begin{align*}
+  (f*g)(x) = \int_{\R^{N}}f(x-y)g(y)dy
+\end{align*}
+ist damit wohldefiniert, heißt \markdef{Faltung} und es gilt $f*g \in L^{p}_{loc}(\R^{N})$.   
+\end{korollar}
+\begin{lemma} Träger einer Faltung
+
+  Es gilt
+  \begin{align*}
+    \supp(f*g) \subseteq \cl(\supp f + \supp g)
+  \end{align*}
+(Träger ist abgeschlosen, Summe von zwei Mengen muss aber nicht abgeschlossen sein). 
+\end{lemma}
+
+\begin{beweis}
+  Sei $x \notin \supp f + \supp g$. Dann ist $(x - \supp f) \cap \supp g = \emptyset$ (einfache Überlegung) und somit ist die Faltung von $f$ und $g$
+  \begin{align*}
+    (f*g)(x) &= \int_{\R^{N}}f(x-y)g(y) dy\\
+&= \int_{\supp g \cap (x- \supp f)} f(x-y)g(y)dy = 0. 
+  \end{align*}
+\end{beweis}
+
+\begin{lemma} Starke Stetigkeit der Shifts /Translationen
+  
+Für alle $p \in [1, \infty)$ und alle $f \in L^{P}(\R^{N})$ gilt
+\begin{align*}
+  \lim_{x \to 0} \int_{\R^{N}} \norm{f(x+y)- f(y)}^{p} dy = 0. 
+\end{align*}
+\end{lemma}
+\begin{beweis}
+  Für alle charakteristischen Funktionen $f = \1_{Q}$ mit $q = (a_{1}, b_{1})\times \dots \times (a_{N}, b_{N})$ folgt die Aussage aus dem Satz von Lebesgue (majorisierte Konvergenz). Damit ist die Aussage richtig für alle $f \in U$ mit
+  \begin{align*}
+    U = \Span \set{ \1_{Q}: \, Q = (a_{1}, b_{1}) \times \dots \times (a_{N}, b_{N}); a_{i}, b_{i} \in \R}. 
+  \end{align*}
+  Der Raum $U$ ist dicht in $L^{p}(\R^{N})$ (für alle $f \in L^{P}(\R^{N})$ und alle $\eps > 0$ gibt es ein $g \in U$ mit $\nnorm{f-g}_{L^{p}} < \eps$). Sei nun $f \in L^{p}(\R^{N})$, $\eps>0$. Sei $g \in U$ mit $\nnorm{f - g}_{L^{p}}  < \eps$. Dann gilt
+  \begin{align*}
+    \limsup_{x \to 0} \(\int_{R^{N}} \norm{f(x + y) - f(y)}^{p} dy\)^{\frac 1 p} &\leq  \limsup_{x \to 0} \(\int_{R^{N}} \norm{f(x + y) - g(x+y)}^{p} dy\)^{\frac 1 p} \\
+& \, +  \(\int_{R^{N}} \norm{g(x + y) - g(y)}^{p} dy\)^{\frac 1 p}\\
+& \, +  \(\int_{R^{N}} \norm{f(y) - g(y)}^{p} dy\)^{\frac 1 p} \\
+&< 2 \eps.
+  \end{align*}
+Da $\eps > 0$ beliebig war, folgt die Aussage. 
+\end{beweis}
+\begin{theorem} Approximation der Eins
+  
+Sei $\phi \in L^{1}(\R^{N})$ positiv ($\phi(x) \geq 0$ f.ü.), $\int_{\R^{N}} \phi = 1$, und setze
+\begin{align*}
+  \phi_{n}(x) \coloneqq n^{N}\phi(n\cdot x), \quad x \in \R^{N}, \, n \in \N. 
+\end{align*}
+Dann gilt für alle $p \in [1, \infty)$ und alle $f \in L^{p}(\R^{N})$
+\begin{align*}
+  \lim_{n \to \infty} \nnorm{f * \phi_{n} - f}_{L^{p}} = 0. 
+\end{align*}
+Beobachtung: $\phi_{n} \geq 0$ und $\int_{\R^{N}} \phi_{n} = 1 = \norm {\phi_{n}}_{L^{1}}$. 
+\end{theorem}
+\begin{beweis}
+  Sei zuerst $p = 1$, also $f \in L^{1}(\R^{N})$. Dann gilt
+  \begin{align*}
+    \nnorm{f*\phi_{n} - f}_{L^{1}(\R^{N})} &=  \int_{R^{N}} \norm{ \int_{\R^{N}} f(x - y)\phi_{n}(y) - f(x) \cdot 1 dy}\,   \,dx\\
+ &\leq  \int_{R^{N}}  \int_{\R^{N}} \norm{f(x - y) - f(x)}\phi_{n}(y)\,  dy \,dx\\
+ &=  \int_{R^{N}}  \int_{\R^{N}} \norm{f(x - \frac y n) - f(x)}\phi(y)\,  dy \,dx\\
+ &=  \int_{R^{N}}  \int_{\R^{N}} \norm{f(x - \frac y n) - f(x)} dx \,\phi(y)\,  dy \to 0
+  \end{align*}
+für $n \to \infty$ nach Lebesgue. Dabei wurden verwendet: Ersetzen der Ein, Substitution, Tonelli.  
+\end{beweis}
+% einiges fehlt!
+% \datum{19. Oktober 2015}
+
+\begin{lemma}
+  Für alle $X \subseteq \R^{N}$ kompakt und alle $\eps > 0$ existiert ein $\phi \in C_{c}^{\infty}(\R^{N})$ mit
+  \begin{align*}
+    0\leq \phi \phi 1 & \In \R^{N}\\
+\phi = 1& \In K\\
+\phi = 0& \in \R^{N}\setminus K^{\eps}. 
+  \end{align*}
+\end{lemma}
+\begin{beweis}
+  Sei $K \subseteq \R^{N}$ kompakt, $\eps > 0$. Sei $\psi \in C_{c}^{\infty}(\R^{N})$ die Testfunktion aus dem Beispiel oben, also
+  \begin{align*}
+    \psi(x) =
+    \begin{cases}
+      c \cdot e^{- \frac 1 {1 - \nnorm x^{2}}}, & \nnorm x < 1\\
+      0, & \nnorm x \geq 1, 
+    \end{cases}
+  \end{align*}
+wobei $c > 0$ so gewählt ist, dass $\int_{\R^{N}}\psi = 1$. Sei 
+\begin{align*}
+  \psi_{\eps}(x) = \frac 1 {\eps^{N}}\psi(\frac x \eps) \quad x \in \R^{N}.
+\end{align*}
+Dann gilt $\psi_{\eps} \in C_{c}^{\infty}(\R^{N})$, $\psi_{\eps}\geq 0$, $\int_{\R^{N}}\psi_{\eps} = 1$ und $\supp \psi_{\eps} = \cl(B(0, \eps))$. 
+
+Sei
+\begin{align*}
+  \phi &\coloneqq \1_{K^{\eps}}* \psi_{\eps}\\
+  \phi(x) &=  \int_{\R^{N}} \1_{K^{\eps}}(y)* \psi_{\eps}(x-y) dy\\
+ &=  \int_{K^{\eps}} \psi_{\eps}(x-y) dy. 
+\end{align*}
+\begin{itemize}
+\item Es gilt $\phi \geq 0$, da der Integrand $\psi_{\eps}\geq 0$ ist.
+\item $\phi \leq 1$, da $\int_{K^{\eps}}\psi_{\eps}(x - y)\leq \int_{\R^{N}}\psi_{\eps}(x - y) = 1$. 
+\item $\phi \in C^{\infty}(\R^{N})$ wegen der Glättungseigenschaften der Faltung. 
+\item $\supp \phi \subseteq \supp \1_{K^{\eps}} + \supp \psi_{\eps} = \cl(K^{\eps}) + \cl(B(0, \eps)) = \cl (K^{2 \eps})$. 
+Insbesondere ist $\supp \phi$ kompakt (und somit $\phi \in C_{c}^{\infty}(\R^{N})$) und $\phi = 0$ in $\R^{N} \setminus \cl(K^{2 \eps})$. 
+\item Es bleibt noch $\phi = 1$ in $K$ zu zeigen: Für $x \in K$ ist
+  \begin{align*}
+    \phi(x) = \int_{K^{\eps}} \psi_{\eps}(x-y)dy = 1, 
+  \end{align*}
+da $x - \cl(B(0, \eps)) \subseteq K^{\eps}$ und $\int_{B(0, \eps)} \psi_{\eps} = \int_{\R^{N}}\psi_{\eps} = 1$. 
+\end{itemize}
+\end{beweis}
+
+\begin{theorem}
+  Für jede offene Menge $\Omega \subseteq \R^{N}$ und jedes $p \in [1, \infty)$ ist $C_{c}^{\infty}(\Omega)$ dicht in $L^{p}(\Omega)$. 
+\end{theorem}
+\begin{beweis}Technik: Abschneiden und glätten! Sei $f \in L^{p}(\Omega)$ und $\eps > 0$. 
+  \begin{enumerate}
+  \item Abschneiden: Wähle eine wachsende ($K_{n} \subseteq K_{n+1}$) Folge $(K_{n})$ von kompakten Mengen $K_{n} \subseteq \Omega$, sodass
+    \begin{align*}
+      \bigcup _{n \in \N} K_{n} = \Omega, 
+    \end{align*}
+zum Beispiel $K_{n} = \set{x \in \Omega: \dist(x, \Omega^{c})\geq \frac 1 n, \, \nnorm x \leq n}$. 
+
+Wähle für alle $n \in \N$ eine Testfunktion $\psi_{n} \in C_{c}^{\infty}(\Omega)$ mit $0 \leq \psi_{n} \leq 1$ in $\Omega$ und $\psi_{n} = 1$ auf $K_{n}$ (das geht, siehe vorheriges Lemma). 
+
+Dann gilt $\psi_{n} \to 1$ punktweise in $\Omega$ (für $n \to \infty$) und insbesondere $f\cdot \psi_{n} \to f$ punktweise in $\Omega$ und $\norm{f \cdot \psi_{n}} \leq \norm f$ in $\Omega$. Satz von Lebesgue:
+\begin{align*}
+  \nnorm{f\cdot \psi_{n} - f}_{L^{p}} \to 0
+\end{align*}
+für $n \to \infty$. Wähle $n \in \N$ so groß, dass mit $g_{1} = f\cdot \psi_{n} \in L^{p}(\Omega)$:
+\begin{align*}
+  \nnorm{f - g_{1}}_{L^{p}} \leq \frac \eps 2. 
+\end{align*}
+Beachte: Der Träger von $g_{1}$ in $\Omega$ ist kompakt. 
+
+\item Glätten: Sei $\phi \in C_{c}^{\infty}(\R^{N})$ eine positive Testfunktion, sodass $\int_{\R^{N}}\phi = 1$ und $\supp \phi \subseteq \cl(B(0, 1))$. Setze dann
+  \begin{align*}
+    \phi_{m}(x) \coloneqq m^{N}(m\cdot x), \quad x \in \R^{N}, m \in \N
+  \end{align*}
+($\int_{\R^{N}} \phi_{m} = 1$, $\supp \phi_{m}\subseteq \cl(B(0, \frac 1 m))$ ). 
+
+Das Theorem über die Approximation der Eins liefert
+\begin{align*}
+  \nnorm {g_{1}* \phi_{m} - g_{1}}_{L^{p}} \to 0 \quad (m \to \infty)
+\end{align*}
+(hier: $g_{1}$ durch $0$ auf $\R^{N}$ fortgesetzt). Glättungseigenschaften der Faltung:
+\begin{align*}
+  g_{1} * \phi_{m} \in C^{\infty}(\R^{N}). 
+\end{align*}
+Trägereigenschaften für Faltungen ($\supp \psi_{m}$ ist kompakt in $\Omega$):
+\begin{align*}
+  \supp g_{1}* \phi_{m} &\subseteq \supp g_{1} + \supp \phi_{m}\\
+&\subseteq \supp \psi_{m} + B(0, \frac 1 m)\\
+& \subseteq \Omega
+\end{align*}
+für $m$ groß genug. Also: Für genügend großes $m$ gilt $g_{1}* \phi_{m} \in C_{c}^{\infty}(\Omega)$ und $\nnorm{g_{1}*\phi_{m} - g_{1}}_{L^{p}} < \frac \eps 2$. Wähle nun $m$ groß genug und setze $g = g_{1} * \phi_{m} = (f\cdot \psi_{n})*\phi_{m}$. Dann ist $g \in C_{c}^{\infty}(\Omega)$ und $\nnorm{f - g}_{L^{p}} < \eps$. 
+  \end{enumerate}
+ \end{beweis}
+
+Es wäre auch möglich gewesen, $g$ durch charakteristische Funktionen zu beschreiben:
+\begin{align*}
+ g =  (f\cdot \1_{K_{n}})* \phi_{m}. 
+\end{align*}
+\begin{theorem}Eindeutigkeit durch Testen 
+
+Sei $\Omega \subseteq \R^{N}$ offen und $f \in L^{1}_{loc}(\Omega)$. Falls
+\begin{align*}
+  \int_{\Omega} f\cdot\phi = 0 \qquad \forall \phi \in C_{c}^{\infty}(\Omega), 
+\end{align*}
+dann ist $f = 0$ (fast überall). 
+(Eventuell ist das namensgebend für 'Testfunktion'.)
+\end{theorem}
+\begin{beweis}
+  Wir nehmen zuerst an, dass $f \in L^{1}(\Omega)$ ist. Für alle $\eps> 0$, wähle $g\coloneqq (f\cdot \psi_{n}) *\phi_{m}$ wie im Beweis des vorherigen Theorems, insbesondere ist $\nnorm{f - g}_{L^{1}} < \eps$, $g \in C_{c}^{\infty}(\Omega)$. Für alle $x \in K_{n}$ gilt:
+  \begin{align*}
+    g(x) = \int_{\R^{N}}f(y) \cdot\psi_{n}(y)\phi_{m}(x - y) dy = 0
+  \end{align*}
+nach Voraussetzung, da $\psi_{n}(\cdot) \cdot \phi_{m}(x - \cdot) \in C_{c}^{\infty}(\Omega)$. Da $n$ beliebig groß und $\eps$ beliebig klein gewählt werden kann, folgt $f = 0$ in $\Omega$. 
+\vspace{5mm}
+
+Falls $f$ nur lokal integrierbar auf $\Omega$ ist, dann wenden wir den ersten Schritt auf $f\cdot\psi$ mit $\psi \in C_{c}^{\infty}(\Omega)$ an. 
+\end{beweis}
+
+\subsection{Schwache Ableitungen und Sobolevräume}
+\label{sec:schw-able-und}
+
+Schreibweisen für partielle Ableitungen von differenzierbaren Funktionen:
+\begin{align*}
+  \frac{\partial u}{\partial x_{i}}, \, \partial_{x_{i}} u, \, \partial_{i} u
+\end{align*}
+(partielle Ableitung von $u$ nach $i$-ter Koordinate $x_{i}$). 
+
+Für einen \markdef{Multiindex} $\alpha \in \N_{0}^{\N}$ und $x \in \R^{N}$ ist
+\begin{align*}
+  x^{\alpha}\coloneqq \prod_{i = 1}^{N} x_{i}^{\alpha_{i}}. 
+\end{align*}
+Für ein Polynom $P: \R^{N} \to \R$ und einen Multiindex $\alpha$,
+\begin{align*}
+  P(x) = \sum_{\norm \alpha\leq k} a_{\alpha}\cdot x^{\alpha}, \quad a_{\alpha} \in \C
+\end{align*}
+betrachten wir den partiellen Differentialoperator
+\begin{align*}
+  P(\partial) = \sum_{\alpha \in \N_{0}^{N}, \norm \alpha \leq k} a_{\alpha}\cdot \partial^{\alpha}
+\end{align*}
+mit $\partial^{\alpha} = \pd_{1}^{\alpha_{1}} \cdot \dots, \cdot \pd_{N}^{\alpha_{N}}$. Zum Beispiel für $P(x) = \nnorm x^{2} = \sum_{i = 1}^{N} x_{1}^{2}$ ist
+\begin{align*}
+  P(\pd) = \sum_{i = 1}^{N} \pd_{i}^{2} \eqqcolon \Delta
+\end{align*}
+der Laplaceoperator. 
+
+Sei $f \in L^{1}_{loc}(\Omega)$, wobei $\Omega \subseteq \R^{N}$ eine offene Menge ist, und sei
+\begin{align*}
+  P(x) =  \sum_{\alpha \in \N_{0}^{N}, \norm \alpha \leq k} a_{\alpha}\cdot x^{\alpha}
+\end{align*}
+ein Polynom. Wir sagen, dass '$P(\pd)f \in L^{1}_{loc}(\Omega)$' (das macht eigentlich keinen Sinn!), falls es eine Funktion $g \in L^{1}_{loc}(\Omega)$ gibt, sodass
+\begin{align*}
+  \int_{\Omega}f P(\pd) \phi = (-1)^{\norm \alpha} \int_{\Omega} g\cdot\phi
+\end{align*}
+für alle Testfunktionen $\phi \in C_{c}^{\infty}(\Omega)$ gilt. 
+
+Beachte: Die Testfunktion $g$, wenn sie denn überhaupt existiert, ist eindeutig bestimmt. 
+Sei nämlich $g_{1}, g_{2} \in L^{1}_{loc}(\Omega)$, sodass
+\begin{align*}
+  \forall \phi \in C_{c}^{\infty}(\Omega): \, (-1)^{\norm \alpha} \int_{\Omega} g_{1}\cdot\phi = \int_{\Omega} f \cdot P(\pd)\phi = (-1)^{\norm \alpha} \int_{\Omega} g_{2}\cdot\phi. 
+\end{align*}
+Dann ist $\int_{\Omega} (g_{1} - g_{2}) \cdot \phi = 0$ für alle $\phi \in C_{c}^{\infty}(\Omega)$ und somit (Eindeutigkeit durch Testen) $g_{1} = g_{2}$. Schreibweise:
+\begin{align*}
+  g \eqqcolon P(\pd)f. 
+\end{align*}
+Wir sagen, dass $f \in L^{1}_{loc}(\Omega)$ \markdef{$k$-mal schwach differenzierbar} ist ($k \in \N$), falls $\pd^{\alpha}f \in L^{1}_{loc}(\Omega)$ für alle Multiindizes $\alpha \in \N_{0}^{N}$ mit $\norm \alpha \leq k$. Die Funktion heißt \markdef{$\alpha$-te schwache Ableitung} von $f$. Aus dem Satz von Gauß (vereinfachte Version, das heißt, eine der beiden Funktionen im Satz von Gauß ist eine Testfunktion) folgt: 
+
+Jede $k$-mal differenzierbare Funktion $f \in C^{k}(\Omega)$ ist $k$-mal schwach differenzierbar und $\alpha$-te klassische Ableitung (Analysis II), $\alpha$-te schwache Ableitung (Definition oben) stimmen überein. 
+
+Gauß in der Version 'light': $f \in C^{1}(\Omega)$, $\phi \in C_{c}^{1}(\Omega)$, $j \in \set{1, \dots, N}$:
+\begin{align*}
+  \int_{\Omega} f\pd_{j}\phi = - \int_{\Omega}\pd_{j} f \cdot\phi. 
+\end{align*}
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "vorlesung"
+%%% End: 

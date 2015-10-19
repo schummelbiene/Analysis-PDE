@@ -1,0 +1,59 @@
+\documentclass[a4paper, fleqn]{scrartcl}
+
+\usepackage{import}
+\import{/home/susi/Uni/}{head}
+\title{Analysis partieller Differentialgleichungen}
+%\setcounter{section}{0}
+
+\begin{document}
+%datum{12. Oktober 2015}
+\maketitle
+
+\begin{center}
+Prof. Chill
+
+\LaTeX-Mitschrift von Susanne Stimpert
+\end{center}
+
+Vorlesung:
+\begin{itemize}
+\item Einfürung in die Analysis mithilfe der Methoden der Funktionalanalysis
+\item Grundlagen der Funktionalanalysis werden vorausgesetzt (Banach-/Hilberträume, Operatoren)
+\item Integrationstheorie (Lebesgueintegral, $L^{p}$)
+\end{itemize}
+
+
+\paragraph{Ungenaue Einführung}
+Partielle Differentialgleichung: 
+\begin{align*}
+  & u: \Omega \to \R, \quad \Omega \subseteq \R^{N} \text{ offen}\\
+  & F(x, u(x), \nabla u(x), \nabla^{2} u(x)) = 0 \quad \forall x \in \Omega
+\end{align*}
+$\Omega$ ist offen, damit punktweise differenziert werden kann. 
+
+Elliptische DGL:
+\begin{align*}
+ - \sum \frac{\partial^{2}u}{ \partial x_{i}^{2}}(x) \coloneqq - \Delta u(x) = f(x), \quad x \in \Omega
+\end{align*}
+Diese nehmen einen Großteil der Vorlesung ein. 
+
+Wärmeleitungsgleichung: 
+\begin{align*}
+  \frac{\partial u}{\partial t} - \Delta_{x} u(t, x) = f(t, x) \quad (t, x) \in (0, T) \times \Omega
+\end{align*}
+
+Schrödingergleichung:
+\begin{align*}
+  \frac{\partial u}{\partial t} - i\cdot\Delta_{x} u(t, x) = f(t, x) \quad (t, x) \in (0, T) \times \Omega
+\end{align*}
+
+Literatur:
+\begin{enumerate}
+\item  H. Brezis: Functional Analysis, Sobolov Spaces and Partial Equations (mit Übungsaufgaben)
+\item L.C. Evans: PDE
+\item Arendt, Urban: Partielle Differentialgleichungen
+\end{enumerate}
+Übungsblätter werden unregelmäßig ausgearbeitet. Mündliche Prüfung am Ende des Semesters (Überraschung!). 
+\include{sobolevraeume} % bis Ende November...
+
+\end{document}
