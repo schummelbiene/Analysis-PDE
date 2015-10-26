@@ -354,7 +354,8 @@ Sei $f \in L^{1}_{loc}(\Omega)$, wobei $\Omega \subseteq \R^{N}$ eine offene Men
 \end{align*}
 ein Polynom. Wir sagen, dass '$P(\pd)f \in L^{1}_{loc}(\Omega)$' (das macht eigentlich keinen Sinn!), falls es eine Funktion $g \in L^{1}_{loc}(\Omega)$ gibt, sodass
 \begin{align*}
-  \int_{\Omega}f P(\pd) \phi = (-1)^{\norm \alpha} \int_{\Omega} g\cdot\phi
+  \int_{\Omega}f P^{*}(\pd) \phi = \int_{\Omega} g\cdot\phi\\
+P^{*}(\pd) \coloneqq \sum_{\alpha \in \N_{0}^{N}, \norm \alpha \leq k} (-a)^{\norm \alpha} a_{\alpha}\cdot \pd^{\alpha}
 \end{align*}
 für alle Testfunktionen $\phi \in C_{c}^{\infty}(\Omega)$ gilt. 
 
@@ -375,6 +376,309 @@ Gauß in der Version 'light': $f \in C^{1}(\Omega)$, $\phi \in C_{c}^{1}(\Omega)
 \begin{align*}
   \int_{\Omega} f\pd_{j}\phi = - \int_{\Omega}\pd_{j} f \cdot\phi. 
 \end{align*}
+
+%\datum{20. Oktober 2015}
+Sei $\Omega \subseteq \R^{N}$ offen, $k \in \N$, $p \in [1, \infty]$. Wir definieren den \markdef{Sobolevraum}
+\begin{align*}
+  W^{k, p}(\Omega) \coloneqq \set{f \in L^{p}(\Omega): \, f \text{ ist } k\text{-mal schwach differentierbar und } \pd^{\alpha}f \in L^{p}(\Omega) \, \forall \alpha \in \N_{0}^{N}, \, \norm \alpha \leq k}
+\end{align*}
+und versehen diesen Raum mit der Norm
+\begin{align*}
+  \nnorm f_{W^{k ,p}} \coloneqq \(\sum_{\alpha \in \N_{0}^{N}, \norm \alpha \leq k} \nnorm {\pd^{\alpha} f}^{p}_{L^{p}}\)^{\frac 1p}, \quad p \in [1, \infty]
+\end{align*}
+beziehungsweise
+\begin{align*}
+    \nnorm f_{W^{k ,\infty}} \coloneqq \sup_{\alpha \in \N_{0}^{N}, \norm \alpha \leq k} \nnorm {\pd^{\alpha} f}_{L^{\infty}}. 
+\end{align*}
+Wir definieren außerdem die \markdef{Sobolevräume}
+\begin{align*}
+    W^{k, p}_{0}(\Omega) \coloneqq \cl_{\nnorm \cdot _{W^{k, p}}} (C_{c}^{\infty}(\Omega))
+\end{align*}
+(gemeint ist der Abschluss im Sinne der $W^{k, p}$-Norm) und setzen
+\begin{align*}
+  H^{k}(\Omega) &\coloneqq W^{k, 2}(\Omega)\\
+  H^{k}_{0}(\Omega) &\coloneqq W^{k, 2}_{0}(\Omega).
+\end{align*}
+Die Räume $H^{k}(\Omega)$ und $H^{k}_{0}(\Omega)$ werden mit dem Skalarprodukt
+\begin{align*}
+  <f, g>_{H^{k}} \coloneqq \sum_{\alpha \in \N_{0}^{N}, \norm \alpha \leq k} \< \pd^{\alpha} f, \pd^{\alpha} g\>_{L^{2}}
+\end{align*}
+versehen, und sind damit Prä-Hilberträume. Die von $<\cdot, \cdot>_{K^{k}}$ induzierte Norm stimmt mir der Norm $\nnorm \cdot_{W^{k, 2}} \eqqcolon \nnorm \cdot _{H^{k}}$ überein. 
+\begin{theorem}
+  Die Sobolevräume $W^{k, p}(\Omega)$ und $W^{k, p}_{0}(\Omega)$ sind Banachräume. Sie sind separabel, falls $p \in [1, \infty)$ und reflexiv, falls $p \in (1, \infty)$. Die Räume $H^{k}(\Omega)$ und $H^{k}_{0}(\Omega)$ sind separable Hilberträume. 
+\end{theorem}
+\begin{beweis}
+  Sei
+  \begin{align*}
+    A \coloneqq \set{\alpha \in \N_{0}^{N}: \, \norm \alpha \leq k}. 
+  \end{align*}
+Betrachte die Abbildung
+\begin{align*}
+  j : W^{k, p}(\Omega) \to L^{p}(\Omega)^{A}, \, f \mapsto (\pd^{\alpha} f)_{\alpha \in A}. 
+\end{align*}
+Wir versehen $L^{p}(\Omega)^{A}$ mit der Norm
+\begin{align*}
+  \nnorm {(f_{\alpha})_{\alpha \in A}}_{(L^{p})^{A}} \coloneqq \( \sum_{\alpha \in A} \nnorm {f_{\alpha}}_{L^{p}}^{p} \)^{\frac 1 p}, \quad p \in [0, \infty)
+\end{align*}
+beziehungsweise
+\begin{align*}
+    \nnorm {(f_{\alpha})_{\alpha \in A}}_{(L^{\infty})^{A}} \coloneqq \sup_{\alpha \in A} \nnorm{f_{\alpha}}_{L^{\infty}}
+\end{align*}
+Dann ist $j$ eine Isometrie und somit ist $W^{k, p}(\Omega)$ genau dann vollständig, wenn das Bild $j(W^{k, p}(\Omega))$ abgeschlossen in $L^{p}(\Omega)^{A}$ ist. Wir verwenden hier, dass $L^{p}(\Omega)$ und damit auch $L^{p}(\Omega)^{A}$ ein Banachraum ist.
+Sei $(f_{n})$ eine Folge in $W^{k, p}(\Omega)$, sodass $(j(f_{n}))$ in $L^{p}(\Omega)^{A}$ gegen $(f_{\alpha})_{\alpha \in A}$ konvergiert. Für alle $n \in \N$, $\alpha \in A$, $ \phi \in C_{c}^{\infty}(\Omega)$ gilt
+\begin{align*}
+  \int_{\Omega} f_{n}\pd^{\alpha}\phi &= (-1)^{\norm \alpha} \int_{\Omega} \pd^{\alpha} f_{n} \phi\\
+  \int_{\Omega} f_{(0, \dots, 0)}\pd^{\alpha}\phi &= (-1)^{\norm \alpha} \int_{\Omega} f_{\alpha} \phi \qquad \text{für } n \to \infty. 
+\end{align*}
+Aus der Definition der schwachen Ableitung folgt, dass $f_{(0, \dots, 0)}$ $\alpha$-mal schwach partiell differentierbar ist und $\pd^{\alpha}f_{(0, \dots, 0)} = f_{\alpha}$. Insbesondere ist $f_{(0, \dots, 0)}$ $k$-mal schwach differentierbar mit
+\begin{align*}
+  \pd^{\alpha}f_{(0, \dots, 0)} = f_{\alpha} \in L^{p}(\Omega), 
+\end{align*}
+das heißt, nach Definition von $W^{k, p}(\Omega)$
+\begin{align*}
+  f_{(0, \dots, 0)} \eqqcolon f \in W^{k, p}(\Omega)
+\end{align*}
+ beziehungsweise
+ \begin{align*}
+   (f_{\alpha})_{\alpha \in A} = (\pd^{\alpha} f)_{\alpha \in A} = j(f). 
+ \end{align*}
+Damit ist das Bild von $j$ abgeschlossen und $W^{k, p}(\Omega)$ vollständig. 
+\vspace{5mm}
+
+Falls $p \in [1, \infty)$, dann ist $L^{p}(\Omega)$ separabel, und somit ist $L^{p}(\Omega)^{A}$ separabel. Da Teilmengen von separablen Räumen separabel sind, ist $j(W^{k, p}(\Omega)) \stackrel \sim =  W^{k, p}(\Omega)$ separabel. 
+
+\vspace{5mm}
+
+Falls $p \in (1, \infty)$, dann ist $L^{p}(\Omega)$ reflexiv (siehe z.B. Brezis), und somit ist $L^{p}(\Omega)^{A}$ reflexiv (endliche Produkte von reflexiven Räumen sind reflexiv). Da abgeschlossene Unterräume von reflexiven Räumen reflexiv sind, ist $j(W^{k, p}(\Omega)) \stackrel \sim = W^{k, p}(\Omega)$ reflexiv. Die Aussagen über $H^{k}$ und $H^{k}_{0}$ folgen direkt daraus. 
+\end{beweis}
+\begin{theorem} Dichtheit der Testfunktionen in $W^{1, p}(\R^{N})$
+
+Für alle $p \in [1, \infty)$ ist $C_{c}^{\infty}(\R^{N})$ dicht in $W^{1, p}(\R^{N})$. Insbesondere ist $W^{1, p}_{0}(\R^{N}) = W^{1, p}(\R^{N})$. 
+\end{theorem}
+Der Beweis des Theorems geht über 'Abschneiden und Glätten'. Man verwendet dabei die folgende Produktregel:
+\begin{lemma} Produktregel
+  
+Für alle $f \in W^{1, p}(\Omega)$ ($p \in [1, \infty]$, $\Omega \subseteq \R^{N}$ offen) und alle $\phi \in C^{\infty}(\Omega) \cap W^{1, \infty} (\Omega)$ gilt
+\begin{align*}
+  f \cdot\phi \in W^{1, p}(\Omega)
+\end{align*}
+und
+\begin{align*}
+  \pd_{j}(f\cdot\phi) = (\pd_{j} f) \cdot\phi + f \cdot \pd_{j} \phi, \quad j \in \set{1, \dots, N}. 
+\end{align*}
+\end{lemma}
+\begin{beweis}
+  Für alle $\psi \in C_{c}^{\infty}(\Omega)$ gilt (mit der klassischen Produktregel, da $\phi, \psi \in C^{1}$):
+  \begin{align*}
+    \int_{\Omega}(f\cdot\phi)\cdot \pd_{j}\psi &= \int_{\Omega} f \cdot \pd_{j}(\underbrace{\phi\cdot\psi}_{\in C_{c}^{\infty}(\Omega)})- \int_{\Omega} f\cdot(\pd_{j}\phi)\cdot\psi\\
+&= -\int_{\Omega} (\pd_{j}f)\cdot\phi\cdot\psi - \int_{\Omega} f\cdot(\pd_{j}\phi)\cdot\psi\\
+&= -\int_{\Omega} \(\underbrace{\pd_{j}f)\cdot\phi + f\cdot(\pd_{j}\phi)}_{\in L^{p}(\Omega)}\)\cdot\psi\\
+\implies f \cdot \phi \in W^{1, p}(\Omega) \, &\wedge \,  \pd_{j} (f \cdot\phi) = \pd_{j}f)\cdot\phi + f\cdot(\pd_{j}\phi). 
+  \end{align*}
+\end{beweis}
+
+Notation: Sei $\Omega \subseteq \R^{N}$ (nicht mal offen). Wir schreiben
+\begin{align*}
+  \omega \Subset \Omega, 
+\end{align*}
+falls $\omega \subseteq \Omega$ und $\cl(\omega)$ (Abschluss in $\Omega$) kompakt ist. 
+\begin{theorem} Friedrichs
+
+
+  Seien $\Omega \subseteq \R^{N}$ offen, $p \in [1, \infty)$ und $f \in W^{1, p}(\Omega)$. Dann gibt es eine Folge $(f_{n})$ in $C_{c}^{\infty}(\R^{N})$, sodass
+  \begin{align*}
+    \left. f_{n}\right|_{\Omega} \to f \In L^{p}(\Omega)\\
+    \left.\nabla f_{n}\right|_{\omega} \to \nabla f \In L^{p}(\omega)^{N} 
+  \end{align*}
+für alle $\omega \Subset \Omega$.
+\end{theorem}
+\begin{beweis}
+  Abschneiden und glätten. 
+\end{beweis}
+\begin{bemerkung}
+  \begin{enumerate}
+  \item Nach einem Resultat von Meyers und Serin (1964), Titel '$H = W$', ist $W^{1, p}(\Omega) \cap C^{\infty}(\Omega)$ dicht in $W^{1, p}(\Omega)$, das heißt, für jedes $f \in W^{1, p}(\Omega)$ gibt es eine Folge $(f_{n}) \in W^{1, p}(\Omega) \cap C^{\infty}(\Omega)$, sodass
+    \begin{align*}
+      f_{n} \to f &\In L^{p}(\Omega), \\
+      \nabla f_{n} \to \nabla f &\In L^{p}(\Omega).
+    \end{align*}
+\item Es gibt offene Mengen $\Omega \subseteq \R^{N}$, für die der Raum
+  \begin{align*}
+    \check C^{\infty}(\Omega) \coloneqq \set{u|_{\Omega}: \, u \in C_{c}^{\infty}(\R^{N})}
+  \end{align*}
+nicht dicht in $W^{1, p}(\Omega)$ ist. Die Frage der Dichtheit von $\check C^{\infty}(\Omega)$ in $W^{1, p}(\Omega)$ ist eine Frage der Regularität des Randes von $\Omega$. Ist zum Beispiel der Rand $\pd \Omega$ eine stetige Mannigfaltigkeit (der Dimenstion $N-1$), dann ist $\check C^{\infty}(\Omega)$ dicht in $W^{1, p}(\Omega)$ (siehe das 18. Internetseminar 2014/15). 
+  \end{enumerate}
+\end{bemerkung}
+
+Sei $\Omega \subseteq \R^{N}$ offen, $f \in L^{i}_{loc}(\Omega)$, $h \in \R^{N}$. Wir definieren $\tau_{h}f$ durch
+\begin{align*}
+  (\tau_{h}f)(x) = f(x + h), \quad x \in \omega, 
+\end{align*}
+wobei $\omega \Subset \Omega$ und $\norm h < \dist(\omega, \pd \Omega)$, beziehungsweise, falls $\Omega = \R^{N}$, dann auch $\omega = \R^{N}$ und $h$ beliebig. 
+
+\begin{theorem} Charakterisierung von $W^{1, p}$
+
+Sei $\Omega\subseteq \R^{N}$ offen, $p \in (1, \infty]$ und $f \in L^{p}(\Omega)$. Dann sind folgende Aussafen äquivalent:
+\begin{enumerate}
+\item\label{num:1} $f \in W^{1, p}(\Omega)$,
+\item\label{num:2} $\exists C\geq0 \forall \phi \in C_{c}^{\infty}(\Omega)\forall j \in \set{1, \dots, N}$:
+  \begin{align*}
+    \norm{\int_{\Omega} f \pd_{j}\phi} \leq C \nnorm{\phi}_{L^{p'}}
+  \end{align*}
+mit $p' = \frac{p}{p-1}$,
+\item\label{num:3} $\exists C>0 \forall\omega \Subset \Omega\forall h \in \R^{N}$ mit $\norm h < \dist\set{\omega, \pd \Omega}$
+  \begin{align*}
+    \nnorm{\tau_{h}f-f}_{L^{p}(\omega)}\leq C\cdot\norm h. 
+  \end{align*}
+\end{enumerate}
+\end{theorem}
+\begin{beweis}
+\numref{1}{2} folgt aus der Definition der schwachen Ableitungen $\pd_{j}f$ und Hölder. 
+
+\numref{2}{1} Nach Voraussetzung ist das lineare Funktional
+\begin{align*}
+  L_{j}:& C_{c}^{\infty} \to \C\\
+  &\phi \mapsto \int_{\Omega}f \pd_{j}\phi
+\end{align*}
+stetig bezüglich der $\nnorm\cdot_{L^{p'}}$-Norm auf $C_{c}^{\infty}(\Omega)$. Da $C_{c}^{\infty}(\Omega)$ dicht in $L^{p'}(\Omega)$ liegt ($p \neq 1$ und somit $p' \neq \infty$!!) besitzt $L_{j}$ eine eindeutige, stetige Fortsetzung auf $L^{p'}(\Omega)$. Also ist $L_{j} \in (L^{p'}(\Omega))'$. Da $(L^{p'}(\Omega))' \stackrel \sim = L^{p}(\Omega)$ (auch hier verwenden wir $p \neq 1$, für $p = 2$: Riez-Fréchet), gibt es ein $g_{j} \in L^{p}(\Omega)$ mit
+\begin{align*}
+  L_{j}(\phi) = \int_{\Omega}f \pd_{j}\phi \stackrel != -\int_{\Omega}g_{j}\phi. 
+\end{align*}
+ Also $g_{j} = \pd_{j}f \in L^{p}(\Omega)$, und da $j$ beliebig war: $f \in W^{1, p}(\Omega)$.
+
+\ref{num:1} $\implies$\ref{num:3}: Sei $f \in C_{c}^{\infty}(\Omega)$, $\omega \Subset \Omega$, $h \in \R^{N}$, $\norm h < \dist(\omega, \pd \Omega)$. Dann gilt für alle $x \in \omega$ ($p > 1$):
+\begin{align*}
+  f(x + h) -f(x)= \int_{0}^{1}\frac d {dt} f(x + t\cdot h) dt
+\end{align*}
+und somit ($p < \infty$)
+\begin{align*}
+  \int_{\omega}\norm{f(x + h) -f(x)}^{p} dx &\leq \int_{\omega}\(\int_{0}^{1}\norm{\nabla f(x + t\cdot h) \cdot h}dt\)^{p}dx\\
+ &\leq \int_{\omega} \int_{0}^{1}\norm{\nabla f(x + t\cdot h)}^{p} \cdot \norm h^{p} dt \,dx\\
+ &\leq \norm h^{p}  \int_{0}^{1} \int_{\omega} \norm{\nabla f(x + t\cdot h)}^{p}  dt\\
+ &\leq \norm h^{p}  \int_{0}^{1}  \nnorm{\nabla f}_{L^{p}(\omega')}^{p}  dt\\
+ &= \norm h^{p} \nnorm{\nabla f}_{L^{p}(\omega')}^{p}
+\end{align*}
+wobei
+\begin{align*}
+  \omega' \coloneqq \set{x \in \R^{N}: \, \dist(x, \omega)< \norm h}, \quad \omega'\Subset \Omega.
+\end{align*}
+Falls $f \in W^{1, p}(\Omega)$ und $\omega, h$ und $\omega'$ wie oben, dann gibt es nach Friedrichs eine Folge $(f_{n})$ in $C_{c}^{\infty}(\Omega)$, sodass
+\begin{align*}
+  f_{n} \to f &\In L^{p}(\Omega), \\
+  \nabla f_{n} \to \nabla f &\In L^{p}(\omega'),\\
+\stackrel{n \to \infty}\implies \quad \nnorm{\tau_{h} f - f}_{L^{p} (\Omega)} &\leq \norm h \cdot \nnorm{\nabla f}_{L^{p}(\omega')}\\
+&\leq \norm h \cdot \underbrace{\nnorm{\nabla f}_{L^{p}(\Omega)}}_{\eqqcolon c}. 
+\end{align*}
+Für $p = \infty$ folgt \ref{num:3} für $f \in C_{c}^{\infty}(\Omega)$ wieder aus dem HDI; verwende sodann Friedrichs in $W^{1, 1}$ und Konvergenz fast überall.  
+\numref{3}{1} Sei $\phi \in C_{c}^{\infty}(\Omega)$, $j \in \set{1, \dots, N}$. Sei $\omega \Subset \Omega$ mit $\supp \phi \subseteq \omega$. Dann gilt
+\begin{align*}
+\int_{\Omega} f \pd_{j} \phi &= \lim_{t \to 0} \int_{\Omega} f \frac{\tau_{t_{j}}\phi - \phi} t\\
+ &= \lim_{t \to 0} \int_{\Omega} f(x) \frac{\phi( x + \tau_{t_{j}}) - \phi(x)} t dx\\
+ &= \lim_{t \to 0} \int_{\omega} f(x) \frac{f( x - \tau_{t_{j}}) - f(x)} t \phi(x) dx\\
+ &= \lim_{t \to 0} \int_{\omega} f(x) \frac{\tau_{-t_{j}}f - f} t dx
+\end{align*}
+und somit nach Voraussetzung und Hölder
+\begin{align*}
+  \norm{\int_{\Omega} f \pd_{j} \phi}&\leq \limsup_{ t \to 0}\frac{\nnorm{\tau_{-t_{j}}f - f}_{L^{p}(\omega)}} t \cdot \nnorm \phi_{L^{p'}(\Omega)}\\
+&\leq C \cdot \nnorm \phi_{L^{p'}(\Omega)}
+\end{align*}
+\end{beweis}
+
+\begin{bemerkung}
+  Im Fall $p = 1$ bleiben die Implikationen \ref{num:1} $\implies$ \ref{num:2} $\iff$ \ref{num:3} wahr. Der Raum
+  \begin{align*}
+ BV(\Omega)\coloneqq \set{f \in L^{1}(\Omega): \, \exists C\geq 0\, \forall \phi \in C_{c}^{\infty}(\Omega) \, \forall j \in \set{1, \dots, N}: \, \norm{\int_{\Omega} f \pd_{j}\phi} \leq C \cdot \nnorm \phi _{L^{\infty}}}
+  \end{align*}
+ist echt größer als $W^{1, 1}(\Omega)$. Elemente aus $BV(\Omega)$ heißen \markdef{Funktionen von beschränkter Variation}. ('Wahnsinnig spannender Raum'!)
+\end{bemerkung}
+\begin{theorem} Kettenregel 
+
+Sei $\Omega\subseteq \R^{N}$ offen, $p \in [1, \infty]$. Sei $g \in C^{1}(\R)$, sodass $g(0) = 0$ und $\norm{g'}(x)\leq M$ für alle $x \in \R$. Dann ist für alle reellen $f \in W^{1, p}(\Omega)$ die Verknüpfung $ g\circ f \in W^{1, p}(\Omega)$ und die Ableitungen der Verknüpfung
+\begin{align*}
+  \pd_{j}(g \circ f) = (g' \circ f) \cdot \pd_{j} f. 
+\end{align*}
+\end{theorem}
+
+\begin{beweis}
+  Sei $f \in W^{1, p}(\Omega)\subseteq L^{p}(\Omega)$. Für alle $x \in \Omega$ gilt (mit dem Mittelwertssatz):
+  \begin{align*}
+    \norm{g(f(x))} &= \norm{g(f(x)) - g(0)} = \norm{g(f(x))}\\ 
+    &\leq M\cdot\norm{f(x) - 0} \\
+    &= M\cdot\norm{f(x)}\\
+\implies \quad &g \circ f  \in L^{p}(\Omega)\\
+\norm{(g'\circ f)(x) \pd_{j}f(x)}&\leq M\cdot \norm{\pd_{j}f(x)}\\
+\implies \quad &(g' \circ f)\cdot \pd_{j}f  \in L^{p}(\Omega).
+  \end{align*}
+Sei $(f_{n})$ eine approximative Folge in $C_{c}^{\infty}(\Omega)$ wie im Satz von Friedrichs, das heißt
+  \begin{align*}
+     f_{n} \to f \In L^{p}(\Omega)\\
+    \nabla f_{n}\to  \nabla f \In L^{p}(\omega), \quad \forall \omega \Subset \Omega.  
+  \end{align*}
+Sei $\phi \in C_{c}^{\infty}(\Omega)$. Dann gilt, für alle $j \in \set{1, \dots, N}$ und alle $n \in \N$
+\begin{align*}
+  \int_{\Omega} (g \circ f_{n})\pd_{j}\phi &= - \int_{\Omega} \pd_{j}(g \circ f_{n})\cdot\phi\\
+ &= - \int_{\Omega} (g' \circ f_{n})\cdot\pd_{j} f_{n} \cdot\phi
+\end{align*}
+Satz von Lebesgue mehrfach angewendet und anschließend Definition eingesetzt: 
+\begin{align*}
+  \int_{\Omega} g \circ f \cdot \pd_{j}\phi &= - \int_{\Omega} (g' \circ f)\cdot\pd_{j} f \cdot\phi\\
+g \circ f \in W^{1, p}(\Omega), \\
+\pd_{j}(g \circ f) = (g' \circ f) \cdot \pd_{j} f. 
+\end{align*}
+\end{beweis}
+Für reelle Funktionen $f, g : \Omega \to \R$ definieren wir punktweise
+\begin{align*}
+f \vee g &\coloneqq \sup \set{f, g}\\
+f \wedge g &\coloneqq \inf \set{f, g}\\
+f^{+}&\coloneqq f \vee 0\\
+f^{-}&\coloneqq (-f) \vee 0\\
+\norm f&\coloneqq f^{+} + f^{-}. 
+\end{align*}
+\begin{theorem}Verbandseigenschaften von $W^{1, p}(\Omega)$ ('$W^{1, p}$ ist noch ok')
+
+Sei $\Omega\subseteq \R^{N}$ offen, $p \in [1, \infty]$, $f, g \in W^{1, ,p}(\Omega)$. Dann gilt
+\begin{align*}
+  f \vee g, f \wedge g, f^{+}, f^{-}, \norm f \in W^{1, p}(\Omega)
+\end{align*}
+und
+\begin{align*}
+  \pd_{j}f^{+} &= \1_{\set{f > 0}} \cdot \pd_{j}f,\\
+  \pd_{j}f^{-} &= -\1_{\set{f < 0}} \cdot \pd_{j}f,\\
+\pd_{j} \norm f &= \sgn f \cdot \pd_{j} f,\\
+\pd_{j} (f \vee g) &= \1_{\set{f > g}} \cdot \pd_{j} f + \1_{f < g} \cdot \pd_{j} g,\\
+\pd_{j} (f \wedge g) &= \1_{\set{f < g}} \cdot \pd_{j} f + \1_{f > g} \cdot \pd_{j} g. 
+\end{align*}
+\end{theorem}
+\begin{beweis}
+  Sei $g: \R \to \R$,
+  \begin{align*}
+    g(x) \coloneqq
+    \begin{cases}
+      x & x \geq 0\\ 0 & x < 0
+    \end{cases}
+  \end{align*}
+und $g_{\eps}: \R\to \R$ ($\eps >0$):
+\begin{align*}
+   g_{\eps}(x) \coloneqq
+    \begin{cases}
+      x  - \frac \eps 2 & x \geq \eps,\\
+      \frac 1{2\eps} x^{2} &0 < x <\eps\\
+      0 & x \leq 0.
+    \end{cases} 
+\end{align*}
+Dann gilt $g \circ f = f^{+}$ und $W^{+} \in W^{1, p}(\Omega)$ folgt dann aus $ g_{\eps}\circ f \in W^{1, p}(\Omega)$ und $\eps \to 0$ (und Kettenregel). Der Rest folgt aus 
+\begin{align*}
+  f^{-} &= (-f)^{+},\\
+\norm f &= f^{+} + f^{-}, \\
+f \vee g &= g + (f-g)^{+}, \\
+f \wedge g &= f - (f - g)^{+}.
+\end{align*}
+
+\end{beweis}
+$\check C^{\infty}(\Omega)$
+$C_{c}^{\infty}(\Omega)$
+$\sum_{\alpha \in \N_{0}^{N}, \norm \alpha \leq k}$
+$W^{k, p}(\Omega)$
 
 
 %%% Local Variables: 
